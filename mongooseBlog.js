@@ -18,24 +18,23 @@ var blogSchema = new mongoose.Schema({
   content: String
 });
 
-
 var Blog = mongoose.model('Blog', blogSchema);
 
 /* insert new blog entry */
 router.post('/create', function(req, res, next) {
 	var blog = new Blog(req.body);
-  	blog.save(function(err, result) {	
-  	if (err) return console.error(err);
-  	res.status(201).send(result);
- 	});
+	blog.save(function(err, result) {	
+		if (err) return console.error(err);
+		res.status(201).send(result);
+	});
 });
 
 /* view a blog entry */
 router.get('/read/:id', function(req, res, next) {
 	var blog = new Blog(req.body);
 	blog.findById(req.params.id, function(err, result) {
-    if (err) return console.error(err);
-    res.status(201).send(result);
+		if (err) return console.error(err);
+	    	res.status(201).send(result);
 	});
 });
 
@@ -44,26 +43,26 @@ router.get('/read/:id', function(req, res, next) {
 router.get('/read', function(req, res, next) {
 	var blog = new Blog(req.body);
 	blog.find(function(err, blogs) {
-	if (err) return console.error(err);
-   	res.status(201).send(blogs);
+		if (err) return console.error(err);
+		res.status(201).send(blogs);
 	});
 });
 
 /* update a blog entry */
 router.put('/update/:id', function(req, res, next) {
 	var blog = new Blog(req.body);
-    blog.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, blog) {
-        if (err) return console.error(err);
-        res.send('Article successfully udpated.');
-    });
+    	blog.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, blog) {
+        	if (err) return console.error(err);
+        	res.send('Article successfully udpated.');
+    	});
 });
 
 /* delete a blog entry */
 router.delete('/delete/:id', function(req, res, next) {
 	var blog = new Blog(req.body);
 	blog.findByIdAndRemove(req.params.id, function (err) => {
-    if (err) return console.error(err);
-    res.status(201).send("Article successfully deleted.");
+    		if (err) return console.error(err);
+    		res.status(201).send("Article successfully deleted.");
 	});
 });
 
